@@ -1,0 +1,118 @@
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease;
+}
+
+/* ─── Top Bar ────────────────────────────────────────────────────── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-6);
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.menuBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+.menuBtn:hover { background: var(--bg-elevated); color: var(--text-primary); }
+
+.topbarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+}
+
+.notifBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+  text-decoration: none;
+}
+.notifBtn:hover { color: var(--clr-primary); border-color: var(--border-primary); }
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: var(--radius-full);
+  background: var(--clr-danger);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbarAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--clr-primary-glow);
+}
+
+/* ─── Content ────────────────────────────────────────────────────── */
+.content {
+  flex: 1;
+  padding: var(--space-8) var(--space-6);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .main { margin-left: 0; }
+  .menuBtn { display: flex; }
+  .content { padding: var(--space-5) var(--space-4); }
+}

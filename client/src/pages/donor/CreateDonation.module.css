@@ -1,0 +1,136 @@
+.page { display: flex; flex-direction: column; gap: var(--space-8); }
+.header h1 { font-size: var(--text-2xl); margin-bottom: var(--space-1); }
+.header p  { color: var(--text-muted); font-size: var(--text-sm); margin: 0; }
+
+/* ─── Stepper ───────────────────────────────────────────────── */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.stepItem {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+.stepNum {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 2px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  z-index: 1;
+  transition: var(--transition-base);
+}
+.stepLabel {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-left: var(--space-2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.stepLine {
+  flex: 1;
+  height: 2px;
+  background: var(--border-subtle);
+  margin: 0 var(--space-3);
+  transition: var(--transition-base);
+}
+.stepActive .stepNum { border-color: var(--clr-primary); color: var(--clr-primary); background: var(--clr-primary-glow); }
+.stepActive .stepLabel { color: var(--clr-primary); }
+.stepDone .stepNum { border-color: var(--clr-primary); background: var(--clr-primary); color: white; font-size: 1.1rem; }
+.stepDone .stepLine { background: var(--clr-primary); }
+
+/* ─── Card ──────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+}
+.stepContent { display: flex; flex-direction: column; gap: var(--space-5); margin-bottom: var(--space-8); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+
+.urgentToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.urgentToggle input { width: 18px; height: 18px; accent-color: var(--clr-primary); cursor: pointer; }
+
+/* ─── AI Section ─────────────────────────────────────────────── */
+.aiSection { display: flex; flex-direction: column; gap: var(--space-6); }
+.aiHeader { display: flex; align-items: center; gap: var(--space-4); }
+.aiIcon { font-size: 2.5rem; color: var(--clr-primary); flex-shrink: 0; }
+.aiHeader h3 { margin: 0 0 var(--space-1); }
+.aiHeader p  { margin: 0; font-size: var(--text-sm); color: var(--text-muted); }
+
+.aiResult {
+  border-radius: var(--radius-xl);
+  border: 1px solid;
+  padding: var(--space-6);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.aiScore { display: flex; align-items: center; gap: var(--space-5); }
+.scoreRing {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.scoreRing span { font-size: var(--text-2xl); font-weight: 900; font-family: var(--font-display); }
+.aiLabel { font-size: var(--text-xl); font-weight: 700; margin-bottom: var(--space-2); }
+.aiRec   { font-size: var(--text-sm); color: var(--text-secondary); max-width: 400px; line-height: 1.6; margin: 0; }
+
+.warning {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  font-size: var(--text-sm);
+  color: #f87171;
+}
+
+/* ─── Review ─────────────────────────────────────────────────── */
+.reviewGrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.reviewItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+}
+.reviewKey { font-size: var(--text-xs); color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.reviewVal { font-size: var(--text-sm); color: var(--text-primary); font-weight: 500; }
+
+/* ─── Nav Buttons ────────────────────────────────────────────── */
+.navBtns { display: flex; justify-content: flex-end; gap: var(--space-3); padding-top: var(--space-4); border-top: 1px solid var(--border-subtle); }
+
+@media (max-width: 600px) {
+  .row { grid-template-columns: 1fr; }
+  .reviewGrid { grid-template-columns: 1fr; }
+  .stepper { flex-wrap: wrap; gap: var(--space-2); }
+  .stepLine { display: none; }
+}
