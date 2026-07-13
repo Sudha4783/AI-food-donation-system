@@ -12,13 +12,13 @@ const initialState = {
 
 // ─── Action Types ─────────────────────────────────────────────────
 const AUTH_ACTIONS = {
-  AUTH_START:    'AUTH_START',
-  AUTH_SUCCESS:  'AUTH_SUCCESS',
-  AUTH_FAIL:     'AUTH_FAIL',
-  LOGOUT:        'LOGOUT',
-  UPDATE_USER:   'UPDATE_USER',
-  CLEAR_ERROR:   'CLEAR_ERROR',
-  SET_LOADING:   'SET_LOADING',
+  AUTH_START: 'AUTH_START',
+  AUTH_SUCCESS: 'AUTH_SUCCESS',
+  AUTH_FAIL: 'AUTH_FAIL',
+  LOGOUT: 'LOGOUT',
+  UPDATE_USER: 'UPDATE_USER',
+  CLEAR_ERROR: 'CLEAR_ERROR',
+  SET_LOADING: 'SET_LOADING',
 };
 
 // ─── Reducer ──────────────────────────────────────────────────────
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
   // On mount: restore session from localStorage
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const user  = localStorage.getItem('user');
+    const user = localStorage.getItem('user');
     if (token && user) {
       try {
         const parsedUser = JSON.parse(user);
@@ -94,20 +94,52 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // ── Register ────────────────────────────────────────────────────
+  // ── Register ────────────────────────────────────────────────────
   const register = useCallback(async (userData) => {
     dispatch({ type: AUTH_ACTIONS.AUTH_START });
+
     try {
-      const { data } = await api.post('/auth/register', userData);
+      console.log("Sending registration data:", userData);
+
+      const { data } = await api.post("/auth/register", userData);
+
+      console.log("Registration Success:", data);
+
       const { user, token } = data.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      dispatch({ type: AUTH_ACTIONS.AUTH_SUCCESS, payload: { user, token } });
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      dispatch({
+        type: AUTH_ACTIONS.AUTH_SUCCESS,
+        payload: { user, token },
+      });
+
       return { success: true };
     } catch (err) {
-      const message = err.response?.data?.message || 'Registration failed';
-      dispatch({ type: AUTH_ACTIONS.AUTH_FAIL, payload: message });
-      return { success: false, error: message };
+      console.log("========== REGISTRATION ERROR ==========");
+      console.log("Status:", err.response?.status);
+      console.log("Response:", err.response?.data);
+      console.log("Error:", err.message);
+      console.log("========================================");
+
+      const message =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        err.message ||
+        "Registration failed";
+
+      dispatch({
+        type: AUTH_ACTIONS.AUTH_FAIL,
+        payload: message,
+      });
+
+      return {
+        success: false,
+        error: message,
+      };
     }
   }, []);
 
